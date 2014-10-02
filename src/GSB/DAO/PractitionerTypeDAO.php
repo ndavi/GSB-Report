@@ -2,9 +2,9 @@
 
 namespace GSB\DAO;
 
-use GSB\Domain\Practitioner_type;
+use GSB\Domain\PractitionerType;
 
-class Practitioner_typeDAO extends GSB\DAO\DAO {
+class PractitionerTypeDAO extends DAO {
 
     /**
      * Returns the list of all practitioner type, sorted by name.
@@ -49,10 +49,10 @@ class Practitioner_typeDAO extends GSB\DAO\DAO {
      * @return \GSB\Domain\Practitioner_type
      */
     protected function buildDomainObject($row) {
-        $practitioner_type = new Practitioner_type();
-        $practitioner_type->setId('practitioner_type_id');
-        $practitioner_type->setName('practitioner_type_name');
-        $practitioner_type->setPlace('practitioner_type_place');
+        $practitioner_type = new PractitionerType();
+        $practitioner_type->setId($row['practitioner_type_id']);
+        $practitioner_type->setName($row['practitioner_type_name']);
+        $practitioner_type->setPlace($row['practitioner_type_place']);
         return $practitioner_type;
     }
 

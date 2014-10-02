@@ -12,13 +12,6 @@ class Practitioner {
     private $id;
 
     /**
-     * Practitioner type id.
-     *
-     * @var integer
-     */
-    private $type_id;
-
-    /**
      * Practitioner name.
      *
      * @var string
@@ -56,7 +49,7 @@ class Practitioner {
     /**
      * Practitioner notoriety coefficient.
      *
-     * @var decimal
+     * @var double
      */
     private $notoriety_coefficient;
     
@@ -71,16 +64,12 @@ class Practitioner {
         return $this->type;
     }
 
-    public function setType(\GSB\Domaine\Practitioner_type $type) {
+    public function setType(PractitionerType $type) {
         $this->type = $type;
     }
 
         public function getId() {
         return $this->id;
-    }
-
-    public function getType_id() {
-        return $this->type_id;
     }
 
     public function getName() {
@@ -111,10 +100,6 @@ class Practitioner {
         $this->id = $id;
     }
 
-    public function setType_id($type_id) {
-        $this->type_id = $type_id;
-    }
-
     public function setName($name) {
         $this->name = $name;
     }
@@ -135,7 +120,7 @@ class Practitioner {
         $this->city = $city;
     }
 
-    public function setNotoriety_coefficient(decimal $notoriety_coefficient) {
+    public function setNotoriety_coefficient($notoriety_coefficient) {
         $this->notoriety_coefficient = $notoriety_coefficient;
     }
 

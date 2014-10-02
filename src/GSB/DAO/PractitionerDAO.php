@@ -4,14 +4,14 @@ namespace GSB\DAO;
 
 use GSB\Domain\Practitioner;
 
-class PractitionerDAO extends GSB\DAO\DAO {
+class PractitionerDAO extends DAO {
 
     /**
      * @var \GSB\DAO\Practitioner_typeDAO
      */
     private $typeDAO;
 
-    public function setTypeDAO(\GSB\DAO\Practitioner_typeDAO $typeDAO) {
+    public function setTypeDAO(PractitionerTypeDAO $typeDAO) {
         $this->typeDAO = $typeDAO;
     }
 
@@ -25,7 +25,7 @@ class PractitionerDAO extends GSB\DAO\DAO {
         $result = $this->getDb()->fetchAll($sql);
 
         // Converts query result to an array of domain objects
-        $practitioner = array();
+        $practitioners = array();
         foreach ($result as $row) {
             $practitionerId = $row['practitioner_id'];
             $practitioners[$practitionerId] = $this->buildDomainObject($row);
@@ -40,14 +40,14 @@ class PractitionerDAO extends GSB\DAO\DAO {
      *
      * @return array The list of practitioner.
      */
-    public function findAllByFamily($typeId) {
+    public function findAllByType($typeId) {
         $sql = "select * from practitioner where practitioner_type_id=? order by practitioner_name";
         $result = $this->getDb()->fetchAll($sql, array($typeId));
 
         // Convert query result to an array of domain objects
-        $practitioner = array();
+        $practitioners = array();
         foreach ($result as $row) {
-            $practitionerId = $row['drug_id'];
+            $practitionerId = $row['practitioner_id'];
             $practitioners[$practitionerId] = $this->buildDomainObject($row);
         }
         return $practitioners;
@@ -61,7 +61,7 @@ class PractitionerDAO extends GSB\DAO\DAO {
      * @return \GSB\Domain\Practitioner|throws an exception if no drug is found.
      */
     public function find($id) {
-        $sql = "select * from practitioner where drug_id=?";
+        $sql = "select * from practitioner where practitioner_id=?";
         $row = $this->getDb()->fetchAssoc($sql, array($id));
 
         if ($row)
@@ -82,15 +82,15 @@ class PractitionerDAO extends GSB\DAO\DAO {
         $type = $this->typeDAO->find($type);
 
         $practitioner = new Practitioner();
-        $practitioner->setId(['practitioner_id']);
-        $practitioner->setName('practitioner_name');
-        $practitioner->setFirst_name('practitioner_first_name');
-        $practitioner->setAddress('practitioner_address');
-        $practitioner->setZip_code('practitioner_zip_code');
-        $practitioner->setCity('practitioner_city');
-        $practitioner->setNotoriety_coefficient('notoriety_coefficient');
+        $practitioner->setId($row['practitioner_id']);
+        $practitioner->setName($row['practitioner_name']);
+        $practitioner->setFirst_name($row['practitioner_first_name']);
+        $practitioner->setAddress($row['practitioner_address']);
+        $practitioner->setZip_code($row['practitioner_zip_code']);
+        $practitioner->setCity($row['practitioner_city']);
+        $practitioner->setNotoriety_coefficient($row['notoriety_coefficient']);
         $practitioner->setType($type);
-        return $drug;
+        return $practitioner;
     }
 
 }
