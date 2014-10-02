@@ -49,11 +49,11 @@ class PractitionerTypeDAO extends DAO {
      * @return \GSB\Domain\Practitioner_type
      */
     protected function buildDomainObject($row) {
-        $practitioner_type = new PractitionerType();
-        $practitioner_type->setId($row['practitioner_type_id']);
-        $practitioner_type->setName($row['practitioner_type_name']);
-        $practitioner_type->setPlace($row['practitioner_type_place']);
-        return $practitioner_type;
+        $practitionerType = new PractitionerType();
+        $practitionerType->setId($row['practitioner_type_id']);
+        $practitionerType->setName($row['practitioner_type_name']);
+        $practitionerType->setPlace($row['practitioner_type_place']);
+        return $practitionerType;
     }
 
 }

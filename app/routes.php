@@ -56,3 +56,9 @@ $app->post('/practitioner/results/', function(Request $request) use ($app) {
     $practitioners = $app['dao.practitioner']->findAllByType($typeId);
     return $app['twig']->render('drugs_results.html.twig', array('practitioners' => $practitioners));
 });
+$app->post('/practitioner/results-advanced/', function(Request $request) use ($app) {
+    $name = $request->request->get('name');
+    $city = $request->request->get('city');
+    $practitioners = $app['dao.practitioner']->findAllByNameOrAndCity($city,$name);
+    return $app['twig']->render('drugs_results.html.twig', array('practitioners' => $practitioners));
+});
