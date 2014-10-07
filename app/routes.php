@@ -54,11 +54,18 @@ $app->get('/practitioner/search/', function() use ($app) {
 $app->post('/practitioner/results/', function(Request $request) use ($app) {
     $typeId = $request->request->get('type');
     $practitioners = $app['dao.practitioner']->findAllByType($typeId);
-    return $app['twig']->render('drugs_results.html.twig', array('practitioners' => $practitioners));
+    return $app['twig']->render('practitioner_result.html.twig', array('practitioners' => $practitioners));
 });
 $app->post('/practitioner/results-advanced/', function(Request $request) use ($app) {
     $name = $request->request->get('name');
     $city = $request->request->get('city');
-    $practitioners = $app['dao.practitioner']->findAllByNameOrAndCity($city,$name);
-    return $app['twig']->render('drugs_results.html.twig', array('practitioners' => $practitioners));
+    $practitioners = $app['dao.practitioner']->findAllByNameOrAndCity($city, $name);
+    return $app['twig']->render('practitioner_result.html.twig', array('practitioners' => $practitioners));
+});
+
+$app->get('/practitioner/results-advanced/', function() use ($app) {
+    return $app->redirect('/practitioner/search/');
+});
+$app->get('/practitioner/results/', function() use ($app) {
+    return $app->redirect('/practitioner/search/');
 });

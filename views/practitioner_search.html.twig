@@ -6,9 +6,9 @@
 {% block content %}
     <h2 class="text-center">{{ block('title') }}</h2>
     <div class="well">
-        <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#search-easy">Recherche normale</a></li>
-            <li><a data-toggle="tab" href="#search-level2">Recherche avancée</a></li>
+        <ul class="nav nav-pills">
+                <li class="active"><a data-toggle="tab" href="#search-easy">Recherche normale</a></li>
+                <li><a data-toggle="tab" href="#search-level2">Recherche avancée</a></li>
         </ul>
         <div class="tab-content">
             <div id="search-easy" class="tab-pane fade in active">
@@ -35,14 +35,14 @@
                 <br/>
                 <form class="form-horizontal" role="form" action="/practitioner/results-advanced/" method="post">
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-offset-1 control-label">Nom</label>
-                        <div class="col-sm-3">
+                        <label class="col-sm-4 col-sm-offset-1 control-label">Nom</label>
+                        <div class="col-sm-4">
                             <input type="text" name="name"/>                      
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 col-sm-offset-1 control-label">Ville</label>
-                        <div class="col-sm-3">
+                        <label class="col-sm-4 col-sm-offset-1 control-label">Ville</label>
+                        <div class="col-sm-4">
                             <input type="city" name="city"/>
                         </div>
                     </div>

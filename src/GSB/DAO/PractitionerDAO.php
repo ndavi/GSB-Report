@@ -63,7 +63,7 @@ class PractitionerDAO extends DAO {
      */
     public function findAllByNameOrAndCity($city = null,$name = null) {
         
-        $sql = "select * from practitioner where practitioner_city LIKE ? practitioner_name LIKE ? order by practitioner_name";
+        $sql = "select * from practitioner where practitioner_city LIKE ? and practitioner_name LIKE ? order by practitioner_name";
         $city = "%" . $city . "%";
         $name = "%" . $name . "%";
         $result = $this->getDb()->fetchAll($sql, array($city,$name));
