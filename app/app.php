@@ -15,6 +15,28 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => __DIR__ . '/../views',
 ));
 
+$app->register(new Silex\Provider\SessionServiceProvider());
+$app->register(new Silex\Provider\UrlGeneratorServiceProvider());
+$app->register(new Silex\Provider\SecurityServiceProvider(), array(
+    'security.firewalls' => array(
+        'login' => array(
+            'pattern' => '^/login$',
+            'anonymous' => true,
+        ),
+        'secured' => array(
+            'pattern' => '^.*$',
+            'logout' => true,
+            'form' => array('login_path' => '/login', 'check_path' => '/login_check'),
+            'users' => $app->share(function () use ($app) {
+                return new GSB\DAO\VisitorDAO($app['db']);
+            }),
+        ),
+    ),
+));
+
+$app->register(new Silex\Provider\FormServiceProvider());
+$app->register(new Silex\Provider\TranslationServiceProvider());
+
 // Register services.
 $app['dao.family'] = $app->share(function ($app) {
     return new GSB\DAO\FamilyDAO($app['db']);
@@ -31,4 +53,7 @@ $app['dao.practitioner'] = $app->share(function ($app) {
     $practitionerDAO = new GSB\DAO\PractitionerDAO($app['db']);
     $practitionerDAO->setTypeDAO($app['dao.practitionertype']);
     return $practitionerDAO;
+});
+$app['dao.visitor'] = $app->share(function ($app) {
+    return new \GSB\DAO\VisitorDAO($app['db']);
 });

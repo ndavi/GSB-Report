@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
+use GSB\Form\Type\VisitorType;
 
 // Home page
 $app->get('/', function () use ($app) {
@@ -69,3 +70,28 @@ $app->get('/practitioner/results-advanced/', function() use ($app) {
 $app->get('/practitioner/results/', function() use ($app) {
     return $app->redirect('/practitioner/search/');
 });
+$app->get('/login', function(Request $request) use ($app) {
+    return $app['twig']->render('login.html.twig', array(
+                'error' => $app['security.last_error']($request),
+                'last_username' => $app['session']->get('_security.last_username'),
+    ));
+})->bind('login');  // named route so that path('login') works in Twig templates
+
+$app->match('/me', function(Request $request) use ($app) {
+    $visitor = $app['security']->getToken()->getUser();
+    $visitorForm = $app['form.factory']->create(new VisitorType(), $visitor);
+    $visitorForm->handleRequest($request);
+    if ($visitorForm->isValid()) {
+        
+        // Encodage du mot de passe
+        $encoder = $app['security.encoder_factory']->getEncoder($visitor);
+        $visitor->setPassword($encoder->encodePassword($visitor->getPassword(), $visitor->getSalt()));
+        
+        $app['dao.visitor']->save($visitor);
+        $app['session']->getFlashBag()->add('success', 'Vos informations de profil ont été changées avec succès.');
+    }
+    $visitorFormView = $visitorForm->createView();
+    return $app['twig']->render('profil.html.twig', array(
+                'visitorForm' => $visitorFormView
+    ));
+})->bind('profil');

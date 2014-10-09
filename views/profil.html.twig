@@ -1,0 +1,98 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Modification de profil{% endblock %}
+
+{% block content %}
+
+    {% if visitorForm %}
+        <div class="well">
+            {{ form_start(visitorForm) }}
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_lastName">Nom</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.lastName) }}
+                    {{ form_widget(visitorForm.lastName, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_firstName">Prénom</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.firstName) }}
+                    {{ form_widget(visitorForm.firstName, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_address">Adresse</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.address) }}
+                    {{ form_widget(visitorForm.address, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_zipCode">Code postal</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.zipCode) }}
+                    {{ form_widget(visitorForm.zipCode, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_city">Ville</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.city) }}
+                    {{ form_widget(visitorForm.city, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_city">Date d'embauche</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.hiringDate) }}
+                    {{ form_widget(visitorForm.hiringDate, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_username">Nom d'utilisateur</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.username) }}
+                    {{ form_widget(visitorForm.username, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4 col-md-5 control-label required" for="visitor_password">Mot de passe</label>
+                <div class="col-sm-5 col-md-3">
+                    {{ form_errors(visitorForm.password) }}
+                    {{ form_widget(visitorForm.password, { 'attr':  {
+                    'class': 'form-control'
+                    }}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_row(visitorForm.save, { 'attr':  {
+                    'class': 'btn btn-primary'
+                }}) }}
+            </div>
+            {{ form_end(visitorForm) }}
+            {% for flashMessage in app.session.flashbag.get('success') %}
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Error when generating form</p>
+
+        </div>
+    {% endif %}
+{% endblock %}
