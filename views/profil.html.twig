@@ -1,12 +1,16 @@
 {% extends "layout.html.twig" %}
 
-{% block title %}Modification de profil{% endblock %}
+{% block title %}Informations personnelles{% endblock %}
 
 {% block content %}
+    
+    <h1 class="text-center">Informations personnelles</h1>
 
     {% if visitorForm %}
         <div class="well">
-            {{ form_start(visitorForm) }}
+            {{ form_start(visitorForm, { 'attr':  {
+                    'class': 'form-horizontal'
+                    }}) }}
             <div class="form-group">
                 <label class="col-sm-4 col-md-5 control-label required" for="visitor_lastName">Nom</label>
                 <div class="col-sm-5 col-md-3">
